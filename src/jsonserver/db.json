@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "username": "mamican25",
+      "password": "1",
+      "id": "fe13"
+    },
+    {
+      "id": "5e5e",
+      "username": "hilal",
+      "password": "aşkım"
+    },
+    {
+      "id": "4a0c",
+      "username": "admin",
+      "password": "1",
+      "balance": 1000
+    }
+  ]
+}
