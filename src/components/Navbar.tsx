@@ -12,6 +12,10 @@ import { filterProducts, setCurrentUser, setLoading, setProducts } from '../redu
 import { toast } from 'react-toastify';
 import productService from '../services/ProductService';
 import { ProductType } from '../types/Types';
+import { FaShoppingBasket } from "react-icons/fa";
+import Badge from '@mui/material/Badge';
+
+
 
 function Navbar() {
     const handleFilter = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,6 +76,9 @@ function Navbar() {
                             }}
                             variant="standard"
                         />
+                        <Badge sx={{ marginRight: '17px' }} badgeContent={5} color="primary" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} >
+                            <FaShoppingBasket style={{ fontSize: '23px', cursor: 'pointer' }} />
+                        </Badge>
 
                         <Button onClick={logout} sx={{ textTransform: 'none' }} color="inherit">Çıkış yap</Button>
                     </div>
