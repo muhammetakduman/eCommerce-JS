@@ -8,10 +8,25 @@ import IconButton from '@mui/material/IconButton';
 import podium from '../images/red-light-round-podium-black-background-mock-up.jpg'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setCurrentUser, setLoading } from '../redux/appSlice';
+import { filterProducts, setCurrentUser, setLoading, setProducts } from '../redux/appSlice';
 import { toast } from 'react-toastify';
+import productService from '../services/ProductService';
+import { ProductType } from '../types/Types';
 
 function Navbar() {
+    const handleFilter = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        try {
+            if (e.target.value) {
+                dispatch(filterProducts(e.target.value));
+            } else {
+                const products: ProductType[] = await productService.getAllProducts();
+                dispatch(setProducts(products));
+
+            }
+        } catch (err) {
+            toast.error("Filtrelerken hata oluştu:" + err)
+        }
+    }
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const logout = () => {
@@ -20,7 +35,7 @@ function Navbar() {
         dispatch(setCurrentUser(null))
         dispatch(setLoading(false))
         navigate('/login')
-        toast.success('Başarıyla çıkış yaptınız')
+        toast.error('Başarıyla çıkış yaptınız')
     }
     return (
         <div>
@@ -40,7 +55,7 @@ function Navbar() {
                         AKDUMAN TİCARET
                     </Typography>
                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                        <TextField sx={{ width: '250px', marginBottom: '25px', marginRight: '20px' }}
+                        <TextField onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilter(e)} sx={{ width: '250px', marginBottom: '25px', marginRight: '20px' }}
                             id="searchInput"
                             placeholder='Arama yap'
                             slotProps={{

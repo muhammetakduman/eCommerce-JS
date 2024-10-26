@@ -7,6 +7,8 @@ import { toast } from 'react-toastify'
 import { RootState } from '../redux/store'
 import ProductCard from '../components/ProductCard'
 import '../css/Home.css'
+import Category from '../components/Category'
+import Container from '@mui/material/Container';
 function Home() {
     const dispatch = useDispatch()
     const { products } = useSelector((state: RootState) => state.app)
@@ -38,12 +40,17 @@ function Home() {
     }, [])
 
     return (
-        <div className='products'>
-            {
-                products && products.map((product: ProductType, index: number) => (
-                    <ProductCard key={index} product={product} />
-                ))
-            }
+        <div className='category'>
+            <Category />
+            <Container maxWidth="xl">
+                <div className='products'>
+                    {
+                        products && products.map((product: ProductType, index: number) => (
+                            <ProductCard key={index} product={product} />
+                        ))
+                    }
+                </div>
+            </Container>
         </div>
     )
 }

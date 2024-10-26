@@ -15,6 +15,12 @@
       "username": "admin",
       "password": "1",
       "balance": 1000
+    },
+    {
+      "id": "7a47",
+      "username": "hilal2",
+      "password": "1",
+      "balance": 1000
     }
   ]
 }
