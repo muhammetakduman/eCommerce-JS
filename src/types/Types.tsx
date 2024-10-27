@@ -12,7 +12,8 @@ export interface ProductType {
     price: number,
     description: string,
     image: string,
-    category: string
+    category: string,
+    count?: number,
     rating: RatingType
 }
 

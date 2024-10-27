@@ -7,13 +7,14 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import podium from '../images/red-light-round-podium-black-background-mock-up.jpg'
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { filterProducts, setCurrentUser, setLoading, setProducts } from '../redux/appSlice';
 import { toast } from 'react-toastify';
 import productService from '../services/ProductService';
 import { ProductType } from '../types/Types';
 import { FaShoppingBasket } from "react-icons/fa";
 import Badge from '@mui/material/Badge';
+import { RootState } from '../redux/store';
 
 
 
@@ -33,6 +34,7 @@ function Navbar() {
     }
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const { basket } = useSelector((state: RootState) => state.basket)
     const logout = () => {
         localStorage.removeItem('currentUser');
         navigate('/login');
@@ -76,7 +78,7 @@ function Navbar() {
                             }}
                             variant="standard"
                         />
-                        <Badge sx={{ marginRight: '17px' }} badgeContent={5} color="primary" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} >
+                        <Badge sx={{ marginRight: '17px' }} badgeContent={basket.length} color="primary" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} >
                             <FaShoppingBasket style={{ fontSize: '23px', cursor: 'pointer' }} />
                         </Badge>
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Container from '@mui/material/Container';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setLoading } from '../redux/appSlice';
 import { toast } from 'react-toastify';
 import productService from '../services/ProductService';
