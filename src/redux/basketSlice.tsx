@@ -3,11 +3,13 @@ import { ProductType } from '../types/Types'
 
 
 export interface BasketSliceType {
-    basket: ProductType[]
+    basket: ProductType[],
+    totalAmount: number,
 }
 
 const initialState: BasketSliceType = {
-    basket: []
+    basket: [],
+    totalAmount: 0
 }
 
 const basketSlice = createSlice({
@@ -35,6 +37,19 @@ const basketSlice = createSlice({
                 }
             }
             localStorage.setItem("basket", JSON.stringify(state.basket))
+        },
+        calculateBasket: (state: BasketSliceType) => {
+            let totalAmount: number = 0;
+            state.basket && state.basket.map((product: ProductType) => {
+                if (product.count) {
+                    totalAmount += product.price * product.count;
+                }
+            })
+            state.totalAmount = totalAmount;
+        },
+        removeProductFromBasket: (state: BasketSliceType, action: PayloadAction<number>) => {
+            state.basket = [...state.basket.filter((product: ProductType) => product.id !== action.payload)]
+            localStorage.setItem("basket", JSON.stringify(state.basket))
         }
     }
 })
@@ -59,5 +74,5 @@ const basketSlice = createSlice({
 
 // });
 
-export const { setBasket, addProductToBasket } = basketSlice.actions
+export const { setBasket, addProductToBasket, calculateBasket, removeProductFromBasket } = basketSlice.actions
 export default basketSlice.reducer

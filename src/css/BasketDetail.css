@@ -1,0 +1,37 @@
+.all-product {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 15px 25px;
+}
+
+.title {
+    font-weight: bold;
+    font-family: arial;
+}
+
+.count {
+    margin-right: 50px;
+    font-family: arial;
+}
+
+.price {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    width: 100px;
+}
+
+.totalAmont {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.totalAmountchild {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    margin-left: 10px;
+    transform: none;
+}

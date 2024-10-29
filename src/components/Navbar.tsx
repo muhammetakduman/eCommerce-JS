@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import podium from '../images/red-light-round-podium-black-background-mock-up.jpg'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterProducts, setCurrentUser, setLoading, setProducts } from '../redux/appSlice';
+import { filterProducts, setCurrentUser, setDrawer, setLoading, setProducts } from '../redux/appSlice';
 import { toast } from 'react-toastify';
 import productService from '../services/ProductService';
 import { ProductType } from '../types/Types';
@@ -31,6 +31,9 @@ function Navbar() {
         } catch (err) {
             toast.error("Filtrelerken hata oluştu:" + err)
         }
+    }
+    const openDrawer = () => {
+        dispatch(setDrawer(true))
     }
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -78,8 +81,8 @@ function Navbar() {
                             }}
                             variant="standard"
                         />
-                        <Badge sx={{ marginRight: '17px' }} badgeContent={basket.length} color="primary" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} >
-                            <FaShoppingBasket style={{ fontSize: '23px', cursor: 'pointer' }} />
+                        <Badge sx={{ marginRight: '17px', cursor: 'pointer' }} badgeContent={basket.length} color="primary" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} >
+                            <FaShoppingBasket onClick={openDrawer} style={{ fontSize: '23px', cursor: 'pointer' }} />
                         </Badge>
 
                         <Button onClick={logout} sx={{ textTransform: 'none' }} color="inherit">Çıkış yap</Button>
