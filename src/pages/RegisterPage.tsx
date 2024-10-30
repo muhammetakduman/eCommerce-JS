@@ -59,7 +59,7 @@ function RegisterPage() {
                             placeholder='Kullanıcı Adı'
                             value={values.username}
                             onChange={handleChange}
-                            helperText={values.username && <span>{errors.username}</span>}
+                            helperText={values.username && <span style={{ color: 'red' }}>{errors.username}</span>}
                             slotProps={{
                                 input: {
                                     startAdornment: (

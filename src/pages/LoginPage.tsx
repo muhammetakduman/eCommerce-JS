@@ -113,6 +113,7 @@ function LoginPage() {
                         <div style={{ marginTop: '20px' }}>
                             <Button type='submit' size='small' style={{ textTransform: 'none', marginRight: '10px' }} variant='outlined' color='info' >Giriş Yap</Button>
                             <Button size='small' style={{ textTransform: 'none' }} variant='outlined' color='error' onClick={clear} >Temizle</Button>
+                            <Button sx={{ marginLeft: '7px' }} size='small' style={{ textTransform: 'none' }} variant='outlined' color='success' onClick={() => navigate('/register')} >Kayıt ol </Button>
                         </div>
                     </div>
                 </form>
