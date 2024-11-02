@@ -1,14 +1,42 @@
-.products {
+.category-container {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
 }
 
-.category {
+.products {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+    flex-wrap: wrap;
+    /* Taşma durumunda alt satıra geçme */
+    gap: 20px;
+    justify-content: flex-start;
+    /* Kartları soldan hizala */
+}
+
+.products-mobile {
+    display: flex;
+    flex-wrap: wrap;
+    /* Taşma durumunda alt satıra geçme */
+    gap: 10px;
     justify-content: center;
+    /* Mobilde kartları ortala */
+}
+
+.products>* {
+    flex: 1 1 calc(33.33% - 20px);
+    /* Her satıra 3 kart */
+    box-sizing: border-box;
+}
+
+.products-mobile>* {
+    flex: 1 1 calc(33.33% - 10px);
+    /* Mobilde de 3 kart, ancak daha az boşluk */
+    box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+    .category-container {
+        flex-direction: column;
+    }
 }

@@ -41,39 +41,39 @@ function BasketDetail() {
         }
     }
     return (
-        <Drawer open={drawer} anchor='right' onClose={closeDrawer} >
-            {
-                basket && basket.map((product: ProductType) => (
-                    <>
-                        <div className='all-product'>
-                            <div style={{ marginRight: '20px' }}>
-                                <img src={product.image} width={70} height={70} alt="" />
-                            </div>
-                            <div style={{ width: '350px', marginRight: '20px' }}>
-                                <div className='title'>{product.title.substring(0, 20)}...</div>
-                                <div>{product.description.substring(0, 40)}... </div>
-                            </div>
-                            <div className='count'><h4>{product.count}</h4></div>
-                            <div className='price'>{product.price} ₺</div>
-                            <div>
-                                <Button onClick={() => removeProduct(product.id)} color='error' size='small' sx={{ textTransform: 'none', height: '25px' }} variant='outlined'>Çıkar</Button>
-                            </div>
+        <Drawer open={drawer} anchor='right' onClose={closeDrawer}>
+            {basket.length === 0 ? (
+                <div style={{ padding: '40px' }}>Sepetinizde ürün bulunmuyor...</div>
+            ) : (
+                basket.map((product: ProductType) => (
+                    <div className='all-product' key={product.id}>
+                        <div style={{ marginRight: '20px' }}>
+                            <img src={product.image} width={70} height={70} alt="" />
                         </div>
-                    </>
-
+                        <div style={{ width: '350px', marginRight: '20px' }}>
+                            <div className='title'>{product.title.substring(0, 20)}...</div>
+                            <div>{product.description.substring(0, 40)}... </div>
+                        </div>
+                        <div className='count'><h4>{product.count}</h4></div>
+                        <div className='price'>{product.price} ₺</div>
+                        <div>
+                            <Button onClick={() => removeProduct(product.id)} color='error' size='small' sx={{ textTransform: 'none', height: '25px' }} variant='outlined'>
+                                Çıkar
+                            </Button>
+                        </div>
+                    </div>
                 ))
-            }
-            <div className='totalAmont'>
-                <div className='totalAmountchild'>Toplam Tutar:   {totalAmount} ₺</div>
-                <div>
+            )}
+            {basket.length > 0 && (
+                <div className='totalAmont'>
+                    <div className='totalAmountchild'>Toplam Tutar: {totalAmount} ₺</div>
                     <Button onClick={buy} sx={{ textTransform: 'none', height: '40px', marginTop: '100px' }} size='large' variant='contained' color='warning'>
                         Satın Al
                     </Button>
                 </div>
-            </div>
-
+            )}
         </Drawer>
-    )
-}
+    );
+};
 
-export default BasketDetail
+export default BasketDetail;
