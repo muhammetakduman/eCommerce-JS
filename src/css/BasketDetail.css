@@ -8,12 +8,12 @@
 
 .title {
     font-weight: bold;
-    font-family: arial;
+    font-family: Arial, sans-serif;
 }
 
 .count {
     margin-right: 50px;
-    font-family: arial;
+    font-family: Arial, sans-serif;
 }
 
 .price {
@@ -27,6 +27,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
+    padding: 15px;
 }
 
 .totalAmountchild {
@@ -34,4 +35,60 @@
     font-size: 20px;
     margin-left: 10px;
     transform: none;
+}
+
+/* Mobil uyumlu stil ayarları */
+@media (max-width: 600px) {
+    .all-product {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .all-product img {
+        width: 50px;
+        /* Görsel boyutunu küçült */
+        height: 50px;
+    }
+
+    .title {
+        font-size: 14px;
+        margin-right: 5px;
+    }
+
+    .count {
+        margin-right: 5px;
+        font-size: 12px;
+        margin-right: 13px;
+    }
+
+    .price {
+        font-size: 14px;
+        width: auto;
+        margin-right: 5px;
+    }
+
+    .totalAmont {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .totalAmountchild {
+        font-size: 16px;
+        margin-left: 0;
+    }
+
+    /* Satın Al Butonu İçin Mobil Ayarlar */
+    .MuiButton-root {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    /* Drawer İçinde Kaydırma Ekleyin */
+    .MuiDrawer-paper {
+        overflow-y: auto;
+    }
 }

@@ -8,13 +8,14 @@ import { RootState } from '../redux/store';
 import ProductCard from '../components/ProductCard';
 import Category from '../components/Category';
 import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import { useMediaQuery } from '@mui/material';
 import '../css/Home.css';
 
 function Home() {
-    const isMobile = useMediaQuery('(max-width:600px)');
     const dispatch = useDispatch();
     const { products } = useSelector((state: RootState) => state.app);
+    const isMobile = useMediaQuery('(max-width:600px)'); // Mobil kontrolü
 
     const getAllProducts = async () => {
         try {
@@ -35,16 +36,30 @@ function Home() {
     }, []);
 
     return (
-        <div className="category-container">
-            <Category />
-            <Container maxWidth="xl">
-                <div className={isMobile ? "products-mobile" : "products"}>
+        <Container maxWidth="xl" sx={{ padding: '20px' }}>
+            <Box
+                display="flex"
+                flexDirection={isMobile ? 'column' : 'row'}
+                gap={3}
+            >
+                {/* Kategori Bileşeni */}
+                <Box flex={isMobile ? '1' : '0 0 250px'}>
+                    <Category />
+                </Box>
+
+                {/* Ürün Kartları Grid Yapısı */}
+                <Box
+                    display="grid"
+                    gridTemplateColumns={isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)'} // Mobilde 2 sütun, masaüstünde 3 sütun
+                    gap={3}
+                    flex="1"
+                >
                     {products && products.map((product: ProductType, index: number) => (
                         <ProductCard key={index} product={product} />
                     ))}
-                </div>
-            </Container>
-        </div>
+                </Box>
+            </Box>
+        </Container>
     );
 }
 
