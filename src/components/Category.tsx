@@ -60,7 +60,7 @@ function Category() {
             }}
         >
             {isMobile ? (
-                // Mobilde "Filtreleme" başlıklı hamburger menü
+                // hamburger menu
                 <Box display="flex" alignItems="center">
                     <IconButton onClick={() => setOpen(!open)} color="primary">
                         <MenuIcon />
@@ -70,13 +70,13 @@ function Category() {
                     </Typography>
                 </Box>
             ) : (
-                // Masaüstünde doğrudan kategoriler
+                //desktop
                 <Typography variant="h6" sx={{ mb: 2 }}>
                     Kategoriler
                 </Typography>
             )}
             <Collapse in={open || !isMobile}>
-                {/* Kategoriler: Mobilde açılabilir menü, masaüstünde varsayılan */}
+
                 {categories && categories.map((category: string, index: number) => (
                     <FormGroup key={index}>
                         <FormControlLabel

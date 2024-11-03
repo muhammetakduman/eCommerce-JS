@@ -8,6 +8,7 @@ import productService from '../services/ProductService';
 import { ProductType } from '../types/Types';
 import { Button, useMediaQuery } from '@mui/material';
 import { addProductToBasket } from '../redux/basketSlice';
+import '../css/ProductDetail.css';
 
 function ProductDetail() {
     const { productId } = useParams();
@@ -16,141 +17,90 @@ function ProductDetail() {
     const [count, setCount] = useState<number>(0);
     const isMobile = useMediaQuery('(max-width:600px)'); // Mobil kontrolü
 
-    const getProductById = async (productId: number) => {
-        try {
-            dispatch(setLoading(true));
-            const product: ProductType = await productService.getProductById(productId);
-            setProducts(product);
-        } catch (error) {
-            toast.error("Ürün detayına giderken hata oluştu:" + error);
-        } finally {
-            dispatch(setLoading(false));
-        }
-    };
+    useEffect(() => {
+        const getProductById = async (productId: number) => {
+            try {
+                dispatch(setLoading(true));
+                const product = await productService.getProductById(productId);
+                setProducts(product);
+            } catch (error) {
+                toast.error("Ürün detayına giderken hata oluştu:" + error);
+            } finally {
+                dispatch(setLoading(false));
+            }
+        };
+
+        getProductById(Number(productId));
+    }, [productId, dispatch]);
 
     const addBasket = () => {
+        if (count === 0) {
+            toast.warn("Lütfen kaç adet istediğinizi belirtiniz.");
+            return;
+        }
+
         if (product) {
-            const payload: ProductType = {
-                ...product,
-                count: count
-            };
+            const payload: ProductType = { ...product, count };
+            toast.success("Sepete eklendi: " + product.title);
             dispatch(addProductToBasket(payload));
         }
     };
 
-    useEffect(() => {
-        getProductById(Number(productId));
-    }, []);
-
     return (
-        <div>
-            <Container maxWidth="lg">
-                {product && (
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: isMobile ? 'column' : 'row', // Mobilde dikey, masaüstünde yatay
-                            alignItems: isMobile ? 'center' : 'flex-start',
-                            justifyContent: isMobile ? 'center' : 'flex-start',
-                            marginTop: isMobile ? '20px' : '100px',
-                            padding: isMobile ? '10px' : '0',
-                        }}
-                    >
-                        <div>
-                            <img
-                                src={product.image}
-                                width={isMobile ? 200 : 250}
-                                height={isMobile ? 300 : 400}
-                                alt={product.title}
-                                style={{ marginBottom: isMobile ? '20px' : '0' }}
-                            />
+        <Container maxWidth="lg">
+            {product && (
+                <div
+                    className={`product-detail-container ${isMobile ? '' : 'desktop'}`}
+                >
+                    <div>
+                        <img
+                            src={product.image}
+                            alt={product.title}
+                            className={`product-image ${isMobile ? '' : 'desktop'}`}
+                        />
+                    </div>
+                    <div className={`product-info ${isMobile ? '' : 'desktop'}`}>
+                        <div className={`product-title ${isMobile ? '' : 'desktop'}`}>
+                            {product.title}
                         </div>
-                        <div style={{ marginLeft: isMobile ? '0' : '100px', textAlign: isMobile ? 'center' : 'left' }}>
-                            <div
-                                style={{
-                                    fontFamily: 'arial',
-                                    fontSize: isMobile ? '20px' : '25px',
-                                    fontWeight: isMobile ? 'bold' : 'normal',
-                                }}
+                        <div className={`product-description ${isMobile ? '' : 'desktop'}`}>
+                            {product.description}
+                        </div>
+                        <div className={`product-price ${isMobile ? '' : 'desktop'}`}>
+                            {product.price} ₺
+                        </div>
+                        <div className={`quantity-controls ${isMobile ? '' : 'desktop'}`}>
+                            <span
+                                onClick={() => setCount(count + 1)}
+                                className={`quantity-button ${isMobile ? '' : 'desktop'}`}
                             >
-                                {product.title}
-                            </div>
-                            <div
-                                style={{
-                                    fontFamily: 'arial',
-                                    fontSize: isMobile ? '14px' : '15px',
-                                    marginTop: isMobile ? '10px' : '25px',
-                                    height: isMobile ? 'auto' : '100px',
-                                }}
+                                +
+                            </span>
+                            <span className={`quantity-button ${isMobile ? '' : 'desktop'}`}>
+                                {count}
+                            </span>
+                            <span
+                                onClick={() => setCount(Math.max(0, count - 1))}
+                                className={`quantity-button ${isMobile ? '' : 'desktop'}`}
                             >
-                                {product.description}
-                            </div>
-                            <div
-                                style={{
-                                    fontFamily: 'arial',
-                                    fontSize: isMobile ? '30px' : '40px',
-                                    fontWeight: 'bold',
-                                    marginTop: isMobile ? '10px' : '0',
-                                }}
+                                -
+                            </span>
+                        </div>
+                        <div className={`add-to-basket ${isMobile ? '' : 'desktop'}`}>
+                            <Button
+                                onClick={addBasket}
+                                color="error"
+                                variant="contained"
+                                size="medium"
+                                sx={{ textTransform: 'none', width: isMobile ? '100%' : 'auto' }}
                             >
-                                {product.price} ₺
-                            </div>
-                            <div
-                                style={{
-                                    marginTop: isMobile ? '20px' : '40px',
-                                    display: 'flex',
-                                    justifyContent: isMobile ? 'center' : 'flex-start',
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <span
-                                    onClick={() => setCount(count + 1)}
-                                    style={{
-                                        fontSize: isMobile ? '30px' : '40px',
-                                        fontWeight: 'bold',
-                                        cursor: 'pointer',
-                                        marginRight: '15px',
-                                    }}
-                                >
-                                    +
-                                </span>
-                                <span
-                                    style={{
-                                        fontSize: isMobile ? '30px' : '40px',
-                                        fontWeight: 'bold',
-                                        marginRight: '15px',
-                                    }}
-                                >
-                                    {count}
-                                </span>
-                                <span
-                                    onClick={() => setCount(count - 1)}
-                                    style={{
-                                        fontSize: isMobile ? '30px' : '40px',
-                                        fontWeight: 'bold',
-                                        cursor: 'pointer',
-                                        marginRight: '15px',
-                                    }}
-                                >
-                                    -
-                                </span>
-                            </div>
-                            <div style={{ marginTop: '15px', display: 'flex', justifyContent: isMobile ? 'center' : 'flex-start' }}>
-                                <Button
-                                    onClick={addBasket}
-                                    color="error"
-                                    variant="contained"
-                                    size="medium"
-                                    sx={{ textTransform: 'none', width: isMobile ? '100%' : 'auto' }}
-                                >
-                                    Sepete Ekle
-                                </Button>
-                            </div>
+                                Sepete Ekle
+                            </Button>
                         </div>
                     </div>
-                )}
-            </Container>
-        </div>
+                </div>
+            )}
+        </Container>
     );
 }
 

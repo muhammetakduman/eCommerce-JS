@@ -90,7 +90,7 @@ function RegisterPage() {
                             variant="outlined"
                             helperText={values.password && <span style={{ color: 'red' }}>{errors.password}</span>}
                         />
-                        <div style={{ marginTop: '20px' }}>
+                        <div className='register-button' style={{ marginTop: '20px' }}>
                             <Button type='submit' size='small' style={{ textTransform: 'none', marginRight: '10px' }} variant='outlined' color='info' >Kayıt ol</Button>
                             <Button size='small' style={{ textTransform: 'none' }} variant='outlined' color='error' onClick={clear} >Temizle</Button>
                         </div>
