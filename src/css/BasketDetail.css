@@ -37,7 +37,6 @@
     transform: none;
 }
 
-/* Mobil uyumlu stil ayarları */
 @media (max-width: 600px) {
     .all-product {
         flex-direction: row;
@@ -81,13 +80,11 @@
         margin-left: 0;
     }
 
-    /* Satın Al Butonu İçin Mobil Ayarlar */
     .MuiButton-root {
         width: 100%;
         margin-top: 20px;
     }
 
-    /* Drawer İçinde Kaydırma Ekleyin */
     .MuiDrawer-paper {
         overflow-y: auto;
     }

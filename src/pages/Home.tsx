@@ -42,15 +42,15 @@ function Home() {
                 flexDirection={isMobile ? 'column' : 'row'}
                 gap={3}
             >
-                {/* Kategori Bileşeni */}
+
                 <Box flex={isMobile ? '1' : '0 0 250px'}>
                     <Category />
                 </Box>
 
-                {/* Ürün Kartları Grid Yapısı */}
+
                 <Box
                     display="grid"
-                    gridTemplateColumns={isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)'} // Mobilde 2 sütun, masaüstünde 3 sütun
+                    gridTemplateColumns={isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)'}
                     gap={3}
                     flex="1"
                 >

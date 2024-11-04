@@ -71,10 +71,10 @@ function Navbar() {
                     )}
                 </Box>
 
-                {/* Orta Kısım: Arama Çubuğu */}
+
                 <Box display="flex"
                     alignItems="center"
-                    justifyContent={isMobile ? 'center' : 'flex-end'} // Mobilde ortala, diğerlerinde sağa yasla
+                    justifyContent={isMobile ? 'center' : 'flex-end'}
                     sx={{ mx: 2, flexGrow: 1 }}>
                     <TextField
                         onChange={handleFilter}
@@ -94,7 +94,7 @@ function Navbar() {
                     />
                 </Box>
 
-                {/* Sağ Kısım: Sepet ve Çıkış Butonu */}
+
                 <Box display="flex" alignItems="center">
                     <Badge sx={{ mr: 2 }} badgeContent={basket.length} color="primary" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
                         <FaShoppingBasket onClick={openDrawer} style={{ fontSize: isMobile ? '20px' : '23px', cursor: 'pointer' }} />

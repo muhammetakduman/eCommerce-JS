@@ -28,7 +28,7 @@
     height: 100vh;
 }
 
-/* Buton düzeni */
+
 .button-group {
     display: flex;
     flex-direction: row;
@@ -36,7 +36,6 @@
     margin-top: 20px;
 }
 
-/* Mobilde Butonları Alt Alta Yapma */
 @media (max-width: 600px) {
     .form-div {
         width: 90%;
@@ -48,7 +47,7 @@
         padding: 10px;
     }
 
-    /* Butonları Alt Alta ve Tam Genişlikte Göster */
+
     .button-group {
         display: flex;
     }

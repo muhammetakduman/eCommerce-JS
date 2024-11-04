@@ -23,12 +23,12 @@ function ProductCard(props: ProductCardProps) {
                 cursor: 'pointer',
                 boxShadow: '2px 3px 4px black',
                 width: isMobile ? 215 : 330,
-                height: 'auto', // Kartın yüksekliğini otomatik ayarla
+                height: 'auto',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                padding: '10px', // İç boşluk ekle
+                padding: '10px',
                 margin: '30px 10px',
             }}
         >
