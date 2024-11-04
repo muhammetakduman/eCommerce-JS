@@ -1,16 +1,3 @@
 {
-  "users": [
-    {
-      "id": "c76f",
-      "username": "admin",
-      "password": "1974252525",
-      "balance": 1000
-    },
-    {
-      "id": "8423",
-      "username": "xmami25x",
-      "password": "1974252525",
-      "balance": 1000
-    }
-  ]
+  "users": []
 }
