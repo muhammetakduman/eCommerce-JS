@@ -23,6 +23,7 @@ function Navbar() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { basket } = useSelector((state: RootState) => state.basket);
+    const { currentUser } = useSelector((state: RootState) => state.app); // Redux store'dan currentUser'ı aldık
 
     const handleFilter = async (e: React.ChangeEvent<HTMLInputElement>) => {
         try {
@@ -43,10 +44,14 @@ function Navbar() {
 
     const logout = () => {
         localStorage.removeItem('currentUser');
-        navigate('/login');
-        dispatch(setCurrentUser(null));
+        dispatch(setCurrentUser(null)); // Kullanıcıyı çıkış yaptıktan sonra currentUser'ı null yapıyoruz
         dispatch(setLoading(false));
         toast.error('Başarıyla çıkış yaptınız');
+        navigate('/login'); // Çıkıştan sonra login sayfasına yönlendirme
+    };
+
+    const handleLogin = () => {
+        navigate('/login'); // Giriş yap butonuna basıldığında login sayfasına yönlendirme
     };
 
     return (
@@ -71,11 +76,13 @@ function Navbar() {
                     )}
                 </Box>
 
-
-                <Box display="flex"
+                {/* Orta Kısım: Arama Çubuğu */}
+                <Box
+                    display="flex"
                     alignItems="center"
                     justifyContent={isMobile ? 'center' : 'flex-end'}
-                    sx={{ mx: 2, flexGrow: 1 }}>
+                    sx={{ mx: 2, flexGrow: 1 }}
+                >
                     <TextField
                         onChange={handleFilter}
                         sx={{ width: '100%', maxWidth: '250px' }}
@@ -83,9 +90,7 @@ function Navbar() {
                         placeholder="Arama yap"
                         variant="standard"
                         InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start"></InputAdornment>
-                            ),
+                            startAdornment: <InputAdornment position="start"></InputAdornment>,
                             style: {
                                 color: '#fff',
                                 borderBottom: '2px solid black'
@@ -94,17 +99,40 @@ function Navbar() {
                     />
                 </Box>
 
-
+                {/* Sağ Kısım: Sepet ve Kullanıcı İşlemleri */}
                 <Box display="flex" alignItems="center">
-                    <Badge sx={{ mr: 2 }} badgeContent={basket.length} color="primary" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+                    <Badge
+                        sx={{ mr: 2 }}
+                        badgeContent={basket.length}
+                        color="primary"
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    >
                         <FaShoppingBasket onClick={openDrawer} style={{ fontSize: isMobile ? '20px' : '23px', cursor: 'pointer' }} />
                     </Badge>
-                    <Button variant='outlined' onClick={logout} sx={{ textTransform: 'none' }} color="inherit">
-                        Çıkış yap
-                    </Button>
+
+                    {/* Kullanıcı Giriş/Çıkış Durumuna Göre Buton */}
+                    {currentUser ? (
+                        <Button
+                            variant="outlined"
+                            onClick={logout} // Çıkış için logout fonksiyonunu çalıştırıyoruz
+                            sx={{ textTransform: 'none' }}
+                            color="inherit"
+                        >
+                            Çıkış Yap
+                        </Button>
+                    ) : (
+                        <Button
+                            variant="outlined"
+                            onClick={handleLogin} // Giriş yap butonuna basıldığında login sayfasına yönlendiriyor
+                            sx={{ textTransform: 'none' }}
+                            color="inherit"
+                        >
+                            Giriş Yap
+                        </Button>
+                    )}
                 </Box>
             </Toolbar>
-        </AppBar >
+        </AppBar>
     );
 }
 

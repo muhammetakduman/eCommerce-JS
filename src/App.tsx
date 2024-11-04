@@ -12,10 +12,12 @@ import { setCurrentUser, setProducts } from './redux/appSlice';
 import { useEffect } from 'react';
 import { setBasket } from './redux/basketSlice';
 import BasketDetail from './components/BasketDetail';
+import { useLocation } from 'react-router-dom';
 
 
 function App() {
   const dispatch = useDispatch()
+  const location = useLocation();
 
   const gelAllProducts = async () => {
     try {
@@ -45,10 +47,10 @@ function App() {
     }
   }, [])
   const { currentUser } = useSelector((state: RootState) => state.app)
-
+  const hideNavbar = location.pathname === '/login' || location.pathname === '/register';
   return (
     <div>
-      {currentUser && <Navbar />}
+      {!hideNavbar && <Navbar />}
       <RouterConfig />
       <ToastContainer autoClose={2000} />
       <Spinner />

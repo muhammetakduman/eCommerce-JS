@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // useNavigate eklendi
 import Container from '@mui/material/Container';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'; // useSelector eklendi
+import { RootState } from '../redux/store'; // RootState eklendi
 import { setLoading } from '../redux/appSlice';
 import { toast } from 'react-toastify';
 import productService from '../services/ProductService';
@@ -13,6 +14,8 @@ import '../css/ProductDetail.css';
 function ProductDetail() {
     const { productId } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate(); // navigate tanımlandı
+    const { currentUser } = useSelector((state: RootState) => state.app); // Redux'tan currentUser durumu alındı
     const [product, setProducts] = useState<ProductType | null>();
     const [count, setCount] = useState<number>(0);
     const isMobile = useMediaQuery('(max-width:600px)'); // Mobil kontrolü
@@ -34,6 +37,15 @@ function ProductDetail() {
     }, [productId, dispatch]);
 
     const addBasket = () => {
+        if (!currentUser) { // Kullanıcı giriş yapmamışsa
+            toast.warn('Ürün sepete eklemek için lütfen giriş yapınız.')
+            setTimeout(() => {
+                navigate('/login'); // Giriş sayfasına yönlendirme
+            }, 3000)
+
+            return;
+        }
+
         if (count === 0) {
             toast.warn("Lütfen kaç adet istediğinizi belirtiniz.");
             return;
@@ -49,9 +61,7 @@ function ProductDetail() {
     return (
         <Container maxWidth="lg">
             {product && (
-                <div
-                    className={`product-detail-container ${isMobile ? '' : 'desktop'}`}
-                >
+                <div className={`product-detail-container ${isMobile ? '' : 'desktop'}`}>
                     <div>
                         <img
                             src={product.image}
