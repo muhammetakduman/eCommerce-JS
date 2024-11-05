@@ -35,7 +35,7 @@ function LoginPage() {
         return response;
     }
 
-    const submit = async (values: any, action: any) => {
+    const submit = async (values: any) => {
         try {
             dispatch(setLoading(true))
             const response: userType[] = await LoginPageService.login()

@@ -1,4 +1,4 @@
-import React from 'react'
+
 import '../css/Register.css'
 import InputAdornment from '@mui/material/InputAdornment';
 import { useFormik } from 'formik';
@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
     const navigate = useNavigate();
-    const submit = async (values: any, actions: any) => {
+    const submit = async (values: any) => {
         try {
             const payload: userType = {
                 id: values.id,

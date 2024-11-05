@@ -47,7 +47,7 @@ function App() {
     }
   }, [])
   const { currentUser } = useSelector((state: RootState) => state.app)
-  const hideNavbar = location.pathname === '/login' || location.pathname === '/register';
+  const hideNavbar = !currentUser && (location.pathname === '/login' || location.pathname === '/register');
   return (
     <div>
       {!hideNavbar && <Navbar />}

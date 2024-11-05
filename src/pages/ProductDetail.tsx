@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; // useNavigate eklendi
 import Container from '@mui/material/Container';
 import { useDispatch, useSelector } from 'react-redux'; // useSelector eklendi
